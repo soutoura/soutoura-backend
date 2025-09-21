@@ -1,6 +1,6 @@
 package com.groupe.soutoura_backend.models;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +14,18 @@ import java.util.Date;
 @Getter
 @Setter
 public class Notification {
+    @Id
     private int id;
+    @Column
     private String message;
+    @Column
     private Date dateEnvoie;
+    @Column
     private boolean estLus;
+    @Column
     private String type;
+
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur", nullable = false)
+    private Utilisateur utilisateur;
 }

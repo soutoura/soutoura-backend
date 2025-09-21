@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +39,7 @@ public class Enfant {
     @Column(nullable = false)
     private String photo;
     @Column(nullable = false)
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
 
     //liste dépenses
     @OneToMany(mappedBy = "enfant")
@@ -51,6 +52,10 @@ public class Enfant {
     //liste rapport pedagogique
     @OneToMany(mappedBy = "enfant")
     private List<RapportPedagogique> rapportPedagogiques= new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "id_parent", nullable = false)
+    private Parent parent;
 
 
 }

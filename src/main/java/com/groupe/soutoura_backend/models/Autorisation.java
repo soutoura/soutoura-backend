@@ -30,4 +30,8 @@ public class Autorisation {
     @OneToOne
     @JoinColumn(name = "id_rapportpedagogique")
     private RapportPedagogique rapportPedagogique;
+
+    @ManyToOne
+    @JoinColumn(name = "id_utilisateur", nullable = false)
+    private Utilisateur utilisateur;
 }
