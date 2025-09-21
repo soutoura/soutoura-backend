@@ -40,4 +40,8 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Notification> Notifications = new ArrayList<>();
+
+    //liste des authorisations
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Autorisation> authorisations = new ArrayList<>();
 }

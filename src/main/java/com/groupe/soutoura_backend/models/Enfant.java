@@ -43,4 +43,14 @@ public class Enfant {
     //liste dépenses
     @OneToMany(mappedBy = "enfant")
     private List<Depense> depenses = new ArrayList<>();
+
+    //liste rapport
+    @OneToMany(mappedBy = "enfant")
+    private List<Rapport> rapports = new ArrayList<>();
+
+    //liste rapport pedagogique
+    @OneToMany(mappedBy = "enfant")
+    private List<RapportPedagogique> rapportPedagogiques= new ArrayList<>();
+
+
 }
