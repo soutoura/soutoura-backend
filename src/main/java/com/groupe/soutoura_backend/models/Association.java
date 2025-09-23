@@ -28,6 +28,9 @@ public class Association {
     @OneToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur utilisateur;
+    //liste des enfants
+    @OneToMany(mappedBy = "association")
+    private List<Enfant> Enfant;
 
 
 }
