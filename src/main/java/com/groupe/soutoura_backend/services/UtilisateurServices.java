@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UtilisateurServices {
@@ -83,4 +84,37 @@ public class UtilisateurServices {
 
         return savedUser;
     }
+
+
+    public List<Utilisateur> getAll() {
+        return utilisateurRepository.findAll();
+    }
+
+    public Utilisateur getById(int  id) {
+        return utilisateurRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable avec id " + id));
+    }
+
+    public Utilisateur update(int id, RequestUtilisateur dto) {
+        Utilisateur user = utilisateurRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable avec id " + id));
+
+        user.setNom(dto.getNom());
+        user.setPrenom(dto.getPrenom());
+        user.setEmail(dto.getEmail());
+        if (dto.getMotDePasse() != null && !dto.getMotDePasse().isEmpty()) {
+            user.setMotDePasse(BCrypt.hashpw(dto.getMotDePasse(), BCrypt.gensalt())); //
+        }
+        user.setTelephone(dto.getTelephone());
+        user.setRole(dto.getRole());
+        user.setEstActif(dto.isEstActif());
+        return utilisateurRepository.save(user);
+    }
+    public void delete(int id) {
+        Utilisateur user = utilisateurRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable avec id " + id));
+        utilisateurRepository.delete(user);
+    }
+
+
 }

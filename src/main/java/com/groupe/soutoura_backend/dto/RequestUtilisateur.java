@@ -17,6 +17,7 @@ public class RequestUtilisateur {
     private String motDePasse;
     private String telephone;
     private Role role;
+    private boolean estActif;
     // Champs spécifiques à l'Association
     private String nomAssociation;
     private String adresse;
