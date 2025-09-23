@@ -1,32 +1,28 @@
-package com.groupe.soutoura_backend.models;
+package com.groupe.soutoura_backend.dto;
 
 import com.groupe.soutoura_backend.enume.Role;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "administrateurs")
-public class Admin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column
+public class RequestUtilisateur {
     private String nom;
-    @Column
     private String prenom;
-
-    @Column
     private String email;
-    @Column
     private String motDePasse;
-    @Column
-    @Enumerated(EnumType.STRING)
+    private String telephone;
     private Role role;
+    private boolean estActif;
+    // Champs spécifiques à l'Association
+    private String nomAssociation;
+    private String adresse;
+    private String papierAssociation;
+
+    // Champs spécifiques au Parrain
+    private String pays;
 }
