@@ -12,6 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class SecurityConfig {
@@ -25,7 +30,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http
+
+    ) throws Exception {
         http .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
@@ -34,6 +41,18 @@ public class SecurityConfig {
                                 .requestMatchers("/api/association/**").hasAnyRole("ASSOCIATION", "ADMIN")
                                 .requestMatchers("/api/parrain/**").hasAnyRole("PARRAIN", "ADMIN")
                                 .requestMatchers("/api/parent/**").hasAnyRole("PARENT", "ADMIN")
+                                .requestMatchers("/api/notifications/**").hasAnyRole("PARENT", "ASSOCIATION"
+                                ,"PARRAIN", "ADMIN")
+                                .requestMatchers("/api/parrainages/**").hasAnyRole("PARRAIN",
+                                        "PARENT", "ADMIN")
+                                .requestMatchers("/api/enfants/**").hasAnyRole("PARRAIN",
+                                        "PARENT", "ASSOCIATION", "ADMIN")
+                                .requestMatchers("/api/autorisations/**").hasAnyRole("PARENT",
+                                        "PARRAIN")
+                                .requestMatchers("/api/depenses/**").hasAnyRole("PARENT", "ASSOCIATION",
+                                        "ADMIN", "PARRAIN")
+                                .requestMatchers("/api/paiements/**").hasAnyRole("PARENT",
+                                        "ASSOCIATION", "ADMIN", "PARRAIN")
                                 .anyRequest().authenticated()
 
                 ) .sessionManagement(session -> session
@@ -56,6 +75,23 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+
+    //CorsConfigurationSource?
+
+    public CorsConfigurationSource corsConfigurationSource(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.setAllowedMethods(List.of("POST", "GET", "DELETE", "PUT"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:8083"));
+        //Autoriser l'envoi de cookie/jwt
+        corsConfiguration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+
+        return source;
     }
 }
 

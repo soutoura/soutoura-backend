@@ -42,6 +42,8 @@ public class Utilisateur {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String photoUrl;
+
     @OneToMany(mappedBy = "utilisateur")
     private List<Notification> Notifications = new ArrayList<>();
 

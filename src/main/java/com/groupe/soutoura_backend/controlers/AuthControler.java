@@ -7,6 +7,7 @@ import com.groupe.soutoura_backend.securities.JwtUtils;
 import com.groupe.soutoura_backend.securities.JwtUtils;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -38,7 +39,12 @@ public class AuthControler {
         return ResponseEntity.ok(new JwtResponse(token, userDetails.getUsername(), userDetails.getAuthorities()));
     }
 
-    public static record LoginRequest(String email, String motDePasse) {}
+
+    public static record LoginRequest(
+            String email,
+            String motDePasse
+    ) {}
+
     public static record JwtResponse(String token, String email, Object roles) {}
 }
 
