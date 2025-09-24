@@ -20,6 +20,8 @@ public class JwtUtils {
     @Value("${jwt.expirationMs}")
     private long jwtExpirationMs;
 
+    //ajouter des accès token  et refresh token
+
     private SecretKey getSigningKey() {
         // Convertir la clé secrète en format approprié
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
@@ -27,12 +29,14 @@ public class JwtUtils {
     }
 
     public String generateJwtToken(UserDetailsImpl userDetails) {
+        System.out.println("Token générer avec succès");
+
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .subject(userDetails.getUsername())
                 .claim("role", userDetails.getAuthorities().iterator().next().getAuthority())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS256, getSigningKey())
+                .issuedAt(new Date())
+                .expiration(new Date((new Date()).getTime() + jwtExpirationMs))
+                .signWith(getSigningKey(), Jwts.SIG.HS256)
                 .compact();
     }
 
@@ -46,10 +50,18 @@ public class JwtUtils {
                 .getSubject();
     }
 
+    public String getUserIdFromJwtToken(String token){
+        return Jwts.parser()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getId();
+    }
+
     public boolean validateJwtToken(String token) {
         try {
             Jwts.parser().setSigningKey(getSigningKey())
-
                             .build()
                     .parseClaimsJws(token);
             return true;

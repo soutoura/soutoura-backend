@@ -16,10 +16,11 @@ import java.util.Optional;
 @Service
 public class AdminServices {
     private final AdminRepo adminRepository;
-    @Value("soutoura@gmail.com")
+
+    @Value("${admin.email}")
     private String email;
-    @Value("soutoura@2025")
-    private String motDePasse;
+
+    private String motDePasse = "soutoura@2025";
     public AdminServices(AdminRepo adminRepository){
         this.adminRepository = adminRepository;
     }
@@ -27,7 +28,8 @@ public class AdminServices {
     public void Admin() {
         List<Admin> adminList = adminRepository.findAll();
         if (adminList.isEmpty()) {
-
+            System.out.println("Création d'un admin");
+            System.out.println(email);
             Admin admin = new Admin();
             admin.setEmail(email);
             admin.setPrenom("Admin");
