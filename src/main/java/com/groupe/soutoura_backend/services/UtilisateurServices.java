@@ -1,7 +1,6 @@
 package com.groupe.soutoura_backend.services;
 
 import com.groupe.soutoura_backend.dto.RequestUtilisateur;
-import com.groupe.soutoura_backend.enume.Role;
 import com.groupe.soutoura_backend.models.Association;
 import com.groupe.soutoura_backend.models.Parent;
 import com.groupe.soutoura_backend.models.Parrain;
@@ -11,7 +10,6 @@ import com.groupe.soutoura_backend.repositories.ParentRepo;
 import com.groupe.soutoura_backend.repositories.ParrainRepo;
 import com.groupe.soutoura_backend.repositories.UtilisateurRepo;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,12 +24,12 @@ public class UtilisateurServices {
 
 
     public UtilisateurServices(UtilisateurRepo utilisateurRepository,
-                               ParrainRepo parrainRepo,
+                               ParrainRepo parrainRepository,
                                AssociationRepo associationRepository,
                                ParentRepo parentRepository
     ){
         this.utilisateurRepository = utilisateurRepository;
-        this.parrainRepo = parrainRepo;
+        this.parrainRepo = parrainRepository;
         this.associationRepository = associationRepository;
         this.parentRepository = parentRepository;
     }
