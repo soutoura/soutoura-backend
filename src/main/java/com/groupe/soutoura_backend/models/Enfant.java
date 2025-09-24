@@ -57,5 +57,9 @@ public class Enfant {
     @JoinColumn(name = "id_parent", nullable = false)
     private Parent parent;
 
+    @ManyToOne
+    @JoinColumn(name = "id_association", nullable = false)
+    private Association association;
+
 
 }
