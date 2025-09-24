@@ -1,4 +1,4 @@
-package com.groupe.soutoura_backend.dto;
+package com.groupe.soutoura_backend.dto.requestDto;
 
 import com.groupe.soutoura_backend.enume.Role;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.groupe.soutoura_backend.controlers;
 
-import com.groupe.soutoura_backend.dto.RequestUtilisateur;
+import com.groupe.soutoura_backend.dto.requestDto.RequestUtilisateur;
 import com.groupe.soutoura_backend.models.Utilisateur;
 import com.groupe.soutoura_backend.services.UtilisateurServices;
 import org.springframework.http.ResponseEntity;

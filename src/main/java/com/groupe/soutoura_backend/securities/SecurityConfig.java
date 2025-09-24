@@ -30,7 +30,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           CorsConfigurationSource corsConfigurationSource
 
     ) throws Exception {
         http .csrf(AbstractHttpConfigurer::disable)
@@ -79,12 +80,12 @@ public class SecurityConfig {
 
 
     //CorsConfigurationSource?
-
+    @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.setAllowedMethods(List.of("POST", "GET", "DELETE", "PUT"));
-        corsConfiguration.setAllowedOrigins(List.of("http://localhost:8083"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:8083", "http://localhost:4200"));
         //Autoriser l'envoi de cookie/jwt
         corsConfiguration.setAllowCredentials(true);
 
