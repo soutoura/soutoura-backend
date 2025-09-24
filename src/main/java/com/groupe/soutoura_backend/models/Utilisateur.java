@@ -24,6 +24,10 @@ public class Utilisateur {
 
     @Column
     private String prenom;
+
+    @Column
+    private String photoUrl;
+
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
