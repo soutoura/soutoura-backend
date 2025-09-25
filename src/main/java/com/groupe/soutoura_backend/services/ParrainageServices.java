@@ -1,21 +1,50 @@
 package com.groupe.soutoura_backend.services;
 
+import com.groupe.soutoura_backend.enume.Status;
+import com.groupe.soutoura_backend.models.Enfant;
+import com.groupe.soutoura_backend.models.Parrain;
 import com.groupe.soutoura_backend.models.Parrainage;
+import com.groupe.soutoura_backend.repositories.EnfantRepo;
+import com.groupe.soutoura_backend.repositories.ParrainRepo;
 import com.groupe.soutoura_backend.repositories.ParrainageRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ParrainageServices {
     private final ParrainageRepo parrainageRepo;
+    private final ParrainRepo parrainRepository;
+    private final EnfantRepo enfantRepository;
 
-    public ParrainageServices(ParrainageRepo parrainageRepo) {
+    public ParrainageServices(ParrainageRepo parrainageRepo,
+                              ParrainRepo parrainRepository,
+                              EnfantRepo enfantRepository)
+    {
         this.parrainageRepo = parrainageRepo;
+        this.enfantRepository = enfantRepository;
+        this.parrainRepository = parrainRepository;
     }
 
     public Parrainage createParrainage(Parrainage parrainage) {
+        return parrainageRepo.save(parrainage);
+    }
+
+    public Parrainage creerParrainage(int parrainId, int enfantId) {
+        Parrain parrain = parrainRepository.findById(parrainId)
+                .orElseThrow(() -> new RuntimeException("Parrain introuvable"));
+
+        Enfant enfant = enfantRepository.findById(enfantId)
+                .orElseThrow(() -> new RuntimeException("Enfant introuvable"));
+
+        Parrainage parrainage = new Parrainage();
+        parrainage.setParrain(parrain);
+        parrainage.setEnfant(enfant);
+        parrainage.setDateDebut(new Date());
+        parrainage.setStatus(Status.ACTIF); // ou en attente selon ta logique
+
         return parrainageRepo.save(parrainage);
     }
 

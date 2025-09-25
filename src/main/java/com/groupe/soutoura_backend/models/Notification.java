@@ -27,5 +27,8 @@ public class Notification {
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)
+    //expediteur
     private Utilisateur utilisateur;
+
+    //recepteur
 }

@@ -21,6 +21,13 @@ public class ParrainageControlers {
         return ResponseEntity.ok(parrainageServices.createParrainage(parrainage));
     }
 
+    @PostMapping("/creer")
+    public ResponseEntity<Parrainage> creerParrainage(
+            @RequestParam int parrainId,
+            @RequestParam int enfantId) {
+        return ResponseEntity.ok(parrainageServices.creerParrainage(parrainId, enfantId));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Parrainage>> getAllParrainages() {
         return ResponseEntity.ok(parrainageServices.getAllParrainages());

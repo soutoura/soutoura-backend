@@ -50,7 +50,7 @@ public class UtilisateurServices {
         user.setEstActif(false);
         user.setDateCreation(new Date());
 
-        Utilisateur savedUser = utilisateurRepository.save(user);
+
 
         // Si c'est un Parrain, créer aussi l'entité Parrain
         switch (utilisateur.getRole()) {
@@ -62,7 +62,8 @@ public class UtilisateurServices {
             }
             case ASSOCIATION -> {
                 Association association = new Association();
-                association.setNomAssociation(utilisateur.getNomAssociation()); //ce champs doit être enlever
+                association.setNomAssociation(utilisateur.getNomAssociation());//ce champs doit être enlever
+                user.setEstActif(true);
                 association.setAdresse(utilisateur.getAdresse());     // à adapter
                 association.setPapierAssociation(utilisateur.getPapierAssociation()); // à adapter
                 association.setUtilisateur(user);
@@ -72,6 +73,7 @@ public class UtilisateurServices {
                 Parent parent = new Parent();
 
                 parent.setUtilisateur(user);
+                user.setEstActif(true);
 
                 parentRepository.save(parent);
             }
@@ -81,7 +83,7 @@ public class UtilisateurServices {
         }
 
 
-
+        Utilisateur savedUser = utilisateurRepository.save(user);
         return savedUser;
     }
 
