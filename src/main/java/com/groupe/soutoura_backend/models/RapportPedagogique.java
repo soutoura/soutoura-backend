@@ -29,10 +29,6 @@ public class RapportPedagogique {
     private Date dateCreation;
 
     @ManyToOne
-    @JoinColumn(name = "id_rapportpedagogique", nullable = false)
-    private RapportPedagogique rapportPedagogique;
-
-    @ManyToOne
     @JoinColumn(name = "id_enfant", nullable = false)
     private Enfant enfant;
 }

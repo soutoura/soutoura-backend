@@ -31,6 +31,4 @@ public class Association {
     //liste des enfants
     @OneToMany(mappedBy = "association")
     private List<Enfant> Enfant;
-
-
 }

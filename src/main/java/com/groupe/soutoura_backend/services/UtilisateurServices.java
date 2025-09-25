@@ -1,6 +1,6 @@
 package com.groupe.soutoura_backend.services;
 
-import com.groupe.soutoura_backend.dto.RequestUtilisateur;
+import com.groupe.soutoura_backend.dto.requestDto.RequestUtilisateur;
 import com.groupe.soutoura_backend.models.Association;
 import com.groupe.soutoura_backend.models.Parent;
 import com.groupe.soutoura_backend.models.Parrain;
@@ -70,7 +70,9 @@ public class UtilisateurServices {
             }
             case PARENT -> {
                 Parent parent = new Parent();
+
                 parent.setUtilisateur(user);
+
                 parentRepository.save(parent);
             }
             case ADMIN -> {

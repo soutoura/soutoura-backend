@@ -1,4 +1,4 @@
-package com.groupe.soutoura_backend.dto;
+package com.groupe.soutoura_backend.dto.requestDto;
 
 import com.groupe.soutoura_backend.enume.Role;
 import lombok.AllArgsConstructor;
@@ -18,6 +18,7 @@ public class RequestUtilisateur {
     private String telephone;
     private Role role;
     private boolean estActif;
+    private String photoUrl;
     // Champs spécifiques à l'Association
     private String nomAssociation;
     private String adresse;
