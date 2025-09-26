@@ -43,7 +43,7 @@ public class ParrainageServices {
         parrainage.setParrain(parrain);
         parrainage.setEnfant(enfant);
         parrainage.setDateDebut(new Date());
-        parrainage.setStatus(Status.ACTIF); // ou en attente selon ta logique
+        parrainage.setStatus(Status.ENATTENTE); // ou en attente selon ta logique
 
         return parrainageRepo.save(parrainage);
     }

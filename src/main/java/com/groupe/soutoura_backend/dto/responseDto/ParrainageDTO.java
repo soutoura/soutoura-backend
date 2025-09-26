@@ -1,15 +1,15 @@
 package com.groupe.soutoura_backend.dto.responseDto;
-
 import com.groupe.soutoura_backend.enume.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestParrain {
+public class ParrainageDTO {
     private int idParrainage;
     private Date dateDebut;
     private Date dateFin;
@@ -27,5 +27,7 @@ public class RequestParrain {
     private String nomEnfant;
     private String prenomEnfant;
 
+    //information de l'association
+    private int idAssociation;
+    private String nomAssociation;
 }
-

@@ -1,5 +1,7 @@
 package com.groupe.soutoura_backend.services;
 
+import com.groupe.soutoura_backend.dto.responseDto.ParrainDTO;
+import com.groupe.soutoura_backend.mappers.ParrainMapper;
 import com.groupe.soutoura_backend.models.Notification;
 import com.groupe.soutoura_backend.models.Parrain;
 import com.groupe.soutoura_backend.repositories.ParrainRepo;
@@ -56,6 +58,19 @@ public class ParrainServices {
     public void deleteParrain(int id) {
         Parrain parrain = getParrainById(id);
         parrainRepo.delete(parrain);
+    }
+
+    public List<ParrainDTO> getAllParrainsResponse() {
+        return parrainRepo.findAll()
+                .stream()
+                .map(ParrainMapper::toDTO)
+                .toList();
+    }
+
+    public ParrainDTO getParrainResponseById(int id) {
+        return parrainRepo.findById(id)
+                .map(ParrainMapper::toDTO)
+                .orElse(null);
     }
 
 
