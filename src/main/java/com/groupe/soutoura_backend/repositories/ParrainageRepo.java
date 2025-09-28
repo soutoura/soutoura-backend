@@ -1,5 +1,6 @@
 package com.groupe.soutoura_backend.repositories;
 
+import com.groupe.soutoura_backend.enume.Status;
 import com.groupe.soutoura_backend.models.Parrainage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,13 @@ public interface ParrainageRepo extends JpaRepository<Parrainage, Integer> {
     List<Parrainage> findByParrainId(int parrainId);
     //recuperer les parrainages d'un enfant
     List<Parrainage> findByEnfantId(int enfantId);
+
+    long countByEnfantAssociationId(int enfantAssociationId);
+
+    // récupérer tous les parrainages d'une association via les enfants
+    List<Parrainage> findByEnfantAssociationId(int enfantAssociationId);
+
+    List<Parrainage> findByEnfantIdInAndStatus(List<Integer> enfantIds, Status status);
+
+
 }

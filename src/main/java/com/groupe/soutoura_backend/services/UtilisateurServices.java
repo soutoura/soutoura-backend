@@ -72,6 +72,8 @@ public class UtilisateurServices {
             }
             case PARENT -> {
                 Parent parent = new Parent();
+                parent.setAdresse(utilisateur.getAdresse());
+                parent.setGenre(parent.getGenre());
                 parent.setUtilisateur(user);
                 parentRepository.save(parent);
             }

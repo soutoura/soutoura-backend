@@ -8,4 +8,5 @@ import java.util.List;
 public interface EnfantRepo extends JpaRepository<Enfant, Integer> {
     List<Enfant> findByParentId(int parentId);
     List<Enfant> findByAssociationId(int associationId);
+    long countByAssociationId(int associationId);
 }

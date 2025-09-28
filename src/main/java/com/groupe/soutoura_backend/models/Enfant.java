@@ -41,6 +41,9 @@ public class Enfant {
     @Column(nullable = false)
     private LocalDate dateNaissance;
 
+    @Column
+    private String description;
+
     //liste dépenses
     @OneToMany(mappedBy = "enfant")
     private List<Depense> depenses = new ArrayList<>();
