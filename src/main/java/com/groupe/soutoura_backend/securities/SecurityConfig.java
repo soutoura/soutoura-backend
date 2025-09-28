@@ -54,6 +54,9 @@ public class SecurityConfig {
                                         "ADMIN", "PARRAIN")
                                 .requestMatchers("/api/paiements/**").hasAnyRole("PARENT",
                                         "ASSOCIATION", "ADMIN", "PARRAIN")
+                                .requestMatchers("/api/upload/**").hasAnyRole("PARENT", "ASSOCIATION",
+                                        "ADMIN", "PARRAIN")
+                                .requestMatchers("/api/files/**").hasAnyRole("PARENT", "ASSOCIATION","ADMIN", "PARRAIN")
                                 .anyRequest().authenticated()
 
                 ) .sessionManagement(session -> session

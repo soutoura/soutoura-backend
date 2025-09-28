@@ -24,27 +24,8 @@ public class DownloadControlers {
         this.downloadService = downloadService;
     }
 
-    /**
-     * Endpoint pour télécharger un fichier
-     */
-    @GetMapping("/download")
-    public ResponseEntity<Resource> downloadFile(
-            @RequestParam("fileName") String fileName,
-            @RequestParam("typeFichier") TypeFichier typeFichier) {
-
-        Resource resource = downloadService.loadFile(fileName, typeFichier);
-
-        String contentType = "application/octet-stream"; // par défaut
-        if (typeFichier == TypeFichier.PHOTO) contentType = "image/jpeg"; // ou png selon extension
-        if (typeFichier == TypeFichier.BULLETIN || typeFichier == TypeFichier.RAPPORT) contentType = "application/pdf";
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
     @GetMapping("/v1/download")
-    public ResponseEntity<Resource> downloadFileV1(
+    public ResponseEntity<Resource> downloadFile(
             @RequestParam("fileName") String fileName,
             @RequestParam("typeFichier") TypeFichier typeFichier) {
 
@@ -53,13 +34,14 @@ public class DownloadControlers {
         String contentType;
         try {
             Path path = resource.getFile().toPath();
-            contentType = Files.probeContentType(path); // détecte automatiquement image/jpeg, image/png, application/pdf, etc.
+            contentType = Files.probeContentType(path);
         } catch (IOException e) {
-            contentType = "application/octet-stream"; // fallback si impossible à détecter
+            contentType = "application/octet-stream";
         }
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);}
+                .body(resource);
+    }
 }

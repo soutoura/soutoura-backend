@@ -16,22 +16,21 @@ public class DownloadService {
     @Value("${file.upload-dir:${user.home}/Desktop/uploads}")
     private String baseUploadDir;
 
-    /**
-     * Récupère le fichier en tant que Resource
-     */
     public Resource loadFile(String fileName, TypeFichier typeFichier) {
         try {
-            Path filePath = Paths.get(baseUploadDir)
-                    .resolve(getFolderName(typeFichier))
-                    .resolve(fileName)
-                    .normalize();
+            Path basePath = Paths.get(baseUploadDir).resolve(getFolderName(typeFichier)).normalize();
+            Path filePath = basePath.resolve(fileName).normalize();
+
+            // sécurité path traversal
+            if (!filePath.startsWith(basePath)) {
+                throw new RuntimeException("Accès non autorisé au fichier : " + fileName);
+            }
 
             Resource resource = new UrlResource(filePath.toUri());
-
             if (resource.exists() && resource.isReadable()) {
                 return resource;
             } else {
-                throw new RuntimeException("Fichier non trouvé ou illisible : " + fileName);
+                throw new RuntimeException("Fichier non trouvé : " + fileName);
             }
         } catch (MalformedURLException e) {
             throw new RuntimeException("Erreur lors du chargement du fichier : " + fileName, e);

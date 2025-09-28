@@ -26,16 +26,20 @@ public class UploadService {
             //creation du dossier
             Files.createDirectories(directory);
 
+            String safeFileName = Paths.get(fileName).getFileName().toString();
+
             String extension;
             if(typefichier == TypeFichier.PHOTO)
             {
-                extension = getFileExtension(file.getOriginalFilename()).orElse("");
+                extension = getFileExtension(file.getOriginalFilename())
+                        .filter(ext -> ext.equalsIgnoreCase(".jpg") || ext.equalsIgnoreCase(".jpeg") || ext.equalsIgnoreCase(".png"))
+                        .orElseThrow(() -> new RuntimeException("Extension de photo invalide"));
             }
             else {
                 extension = ".pdf";
             }
 
-            Path filePath = directory.resolve(fileName + extension);
+            Path filePath = directory.resolve(safeFileName+ extension);
 
             // Sauvegarde
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
